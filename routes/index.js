@@ -12,7 +12,7 @@ module.exports = (passport) =>{
 
     router.get('/',(req,res)=>{
         return res.status(200).send("In the login page");
-    })
+    });
 
     //auth routes
     router.post('/register',validator(schemas.auth.register),auth.register);
@@ -21,14 +21,15 @@ module.exports = (passport) =>{
 
     // user routes
     router.get('/home',auth.isLoggedIn,(req,res)=>{
-        return res.send(req.user);
-    })
+        return res.send('In the home page');
+    });
     router.post('/addpost', auth.isLoggedIn, validator(schemas.user.addpost),user.addpost);
     router.get('/posts',auth.isLoggedIn, user.getposts);
     router.get('/posts/:id',auth.isLoggedIn,user.postbyid);
     router.get('/editpost/:id',auth.isLoggedIn, user.editpost);
     router.post('/editpost/:id',auth.isLoggedIn, validator(schemas.user.editpost), user.editpost);
     router.delete('/deletepost/:id',auth.isLoggedIn,user.deletepost);
+    router.get('/profile/:username', auth.isLoggedIn, user.profile);
 
 
     return router;

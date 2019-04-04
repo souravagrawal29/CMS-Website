@@ -99,6 +99,18 @@ module.exports = () =>{
         })
     }
 
+    exp.profile = (req,res) =>{
+        db.query('SELECT name,username,organisation FROM Users WHERE username = ?',[req.params.username],(err,result)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).send('Internal Server Error');
+            }
+            if(result.length==0)
+                return res.status(404).send('User Not Found');
+            return res.status(200).send(result[0]);
+        });
+    };
+
 
     
     return exp;
