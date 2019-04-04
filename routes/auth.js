@@ -41,6 +41,13 @@ module.exports = (passport) =>{
         failureFlash: false
     });
 
+    exp.isLoggedIn = (req, res, next) => {
+        if(req.isAuthenticated())
+            return next();
+        else
+            return res.redirect('/');
+    };
+
     exp.logout = (req, res) => {
         req.logout();
         return res.redirect('/');
